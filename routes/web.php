@@ -5,6 +5,7 @@ use App\Http\Controllers\BukuController;
 
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\jobController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,3 +37,21 @@ Route::controller(LoginRegisterController::class)->group(function () {
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
     ->middleware(['auth', 'is_admin'])
     ->name('admin.dashboard');
+
+Route::get('/hello', function () {
+    return "Halo, ini percobaan halaman";
+});
+
+Route::get('/admin', function () {
+    return "Halo Admin!";
+})->middleware(['auth', 'is_admin']);
+
+Route::get('/profile', function () {
+    return "Ini halaman profile";
+})->middleware('auth');
+
+Route::get('/admin/jobs', function () {
+    return "Ini halaman jobs admin";
+})->middleware(['auth','is_admin']);
+
+Route::get('/jobs', [jobController::class, 'index']);
